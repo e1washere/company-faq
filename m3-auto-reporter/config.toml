@@ -1,0 +1,19 @@
+# m3‑auto‑reporter configuration
+# Any ${VAR_NAME} will be expanded from the environment.
+
+[slack]
+# Incoming webhook
+webhook_url = "${SLACK_WEBHOOK_URL}"
+
+[[report]]
+name     = "daily_summary"
+channel  = "#all-patrianna-demo"          # Target Slack channel
+template = "prompts/daily_summary.jinja"  # Jinja template
+query    = """
+SELECT
+  CURRENT_DATE()      AS run_date,
+  COUNT(*)            AS requests_today,
+  SUM(token_count)    AS tokens_today
+FROM  `patrianna-rag-demo.analytics.request_logs`
+WHERE DATE(timestamp) = CURRENT_DATE()
+"""
