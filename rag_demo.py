@@ -1,51 +1,67 @@
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
+from typing import List, Tuple
 
-from langchain.document_loaders import TextLoader
+from dotenv import load_dotenv
+from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai.embeddings import OpenAIEmbeddings           
+from langchain_openai.chat_models import ChatOpenAI              
 from langchain_community.vectorstores import Chroma
-from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 
+load_dotenv()
 
-def ingest_docs(source_path: str | Path, persist_directory: str = "chroma_store") -> Chroma:
-    loader = TextLoader(str(source_path), encoding="utf‑8")
-    docs = loader.load()
+DEFAULT_SOURCE = Path("data/faq.md")
+PERSIST_DIR = "vector_store"
+COLLECTION = "company_faq_demo"
 
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    chunks = splitter.split_documents(docs)
 
-    embeddings = OpenAIEmbeddings()
+def ingest_docs(source_path: Path, persist_directory: str = PERSIST_DIR) -> Chroma:
+    """Load a markdown/txt file, embed chunks, and persist to Chroma."""
+    docs = TextLoader(str(source_path), encoding="utf-8").load()
+    chunks = RecursiveCharacterTextSplitter(
+        chunk_size=1_000, chunk_overlap=200
+    ).split_documents(docs)
 
     vectordb = Chroma.from_documents(
         chunks,
-        embedding=embeddings,
+        embedding=OpenAIEmbeddings(),
         persist_directory=persist_directory,
-        collection_name="company_faq_demo",
+        collection_name=COLLECTION,
     )
-    vectordb.persist()
     return vectordb
 
 
-def load_vectordb(persist_directory: str = "chroma_store") -> Chroma:
-    embeddings = OpenAIEmbeddings()
-    vectordb = Chroma(
+def load_vectordb(persist_directory: str = PERSIST_DIR) -> Chroma:
+    """Load an existing on-disk Chroma store."""
+    return Chroma(
         persist_directory=persist_directory,
-        embedding_function=embeddings,
-        collection_name="company_faq_demo",
+        embedding_function=OpenAIEmbeddings(),
+        collection_name=COLLECTION,
     )
-    return vectordb
+
+
+def single_query(
+    query: str,
+    vectordb: Chroma,
+    history: List[Tuple[str, str]] | None = None,
+) -> str:
+    """Run a single retrieval-augmented query."""
+    chain = ConversationalRetrievalChain.from_llm(
+        ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
+        vectordb.as_retriever(),
+    )
+    result = chain.invoke({"question": query, "chat_history": history or []})
+    return result["answer"]
+
 
 def chat_loop(vectordb: Chroma) -> None:
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
-    chain = ConversationalRetrievalChain.from_llm(llm, vectordb.as_retriever())
-
-    chat_history: list[tuple[str, str]] = []
-    print("\n Ask me anything about the company (type 'exit' to quit)\n")
+    """Simple REPL until user types ‘exit’."""
+    history: List[Tuple[str, str]] = []
+    print("\nAsk me anything about the company (type 'exit' to quit)\n")
     while True:
         try:
             query = input("You: ").strip()
@@ -54,28 +70,32 @@ def chat_loop(vectordb: Chroma) -> None:
             break
         if query.lower() in {"exit", "quit", "q"}:
             break
-
-        result = chain({"question": query, "chat_history": chat_history})
-        answer: str = result["answer"]
+        answer = single_query(query, vectordb, history)
         print(f"Bot: {answer}\n")
-        chat_history.append((query, answer))
+        history.append((query, answer))
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run a small RAG FAQ bot.")
-    parser.add_argument("--source", required=True, help="Path to FAQ .md/.txt file")
-    parser.add_argument("--rebuild", action="store_true", help="Rebuild vector store from source")
+    parser = argparse.ArgumentParser(description="Run a tiny RAG FAQ bot.")
+    parser.add_argument("--source", default=str(DEFAULT_SOURCE),
+                        help="Path to FAQ .md/.txt file")
+    parser.add_argument("--rebuild", action="store_true",
+                        help="Rebuild vector store from source")
+    parser.add_argument("--query",
+                        help="Run one-off question and quit")
     args = parser.parse_args()
 
-    persist_dir = "chroma_store"
-    source = Path(args.source)
-    if args.rebuild or not Path(persist_dir).exists():
+    if args.rebuild or not Path(PERSIST_DIR).exists():
         print("[+] Building vector store…")
-        vectordb = ingest_docs(source, persist_directory=persist_dir)
+        vectordb = ingest_docs(Path(args.source))
     else:
         print("[+] Loading existing vector store…")
-        vectordb = load_vectordb(persist_directory=persist_dir)
-    chat_loop(vectordb)
+        vectordb = load_vectordb()
+
+    if args.query:
+        print("\nAnswer:", single_query(args.query, vectordb), "\n")
+    else:
+        chat_loop(vectordb)
 
 
 if __name__ == "__main__":
