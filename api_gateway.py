@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-VERTEX_PROJECT = os.getenv("VERTEX_PROJECT")
-VERTEX_LOCATION = os.getenv("VERTEX_LOCATION", "us‑central1")
+VERTEX_PROJECT = os.getenv("VERTEX_PROJECT") or os.getenv("GOOGLE_PROJECT")
+VERTEX_LOCATION = os.getenv("VERTEX_LOCATION") or os.getenv("GOOGLE_LOCATION", "us-central1")
 
 if not OPENAI_API_KEY:
     print("[WARN] OPENAI_API_KEY not set – OpenAI provider will fail.")
