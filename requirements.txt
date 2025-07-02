@@ -4,3 +4,4 @@ chromadb~=0.5
 openai>=1.14
 tiktoken~=0.7
 python-dotenv
+langchain-openai~=0.1
