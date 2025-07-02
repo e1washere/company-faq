@@ -40,25 +40,34 @@ class ChatResponse(BaseModel):
     content: str
 
 
-def _call_openai(model: str, messages: List[dict]) -> str:
-    import openai
+def _call_openai(model: str, messages: list[dict]) -> str:
+    from openai import OpenAI
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
-    openai.api_key = OPENAI_API_KEY
-    response = openai.ChatCompletion.create(model=model, messages=messages)
-    return response.choices[0].message["content"].strip()
+    resp = client.chat.completions.create(
+        model=model,
+        messages=messages,
+    )
+    return resp.choices[0].message.content.strip()
 
 
 def _call_vertex(model: str, messages: List[dict]) -> str:
-    try:
-        from vertexai.preview.language_models import ChatModel
-        import vertexai
-    except ImportError as exc:
-        raise RuntimeError("Install google‑cloud‑aiplatform >= 1.49 to use Vertex AI") from exc
+    from google.oauth2 import service_account
+    from vertexai.preview.language_models import ChatModel
+    import vertexai, os
 
-    vertexai.init(project=VERTEX_PROJECT, location=VERTEX_LOCATION)
-    chat_model = ChatModel.from_pretrained(model)
+    creds = service_account.Credentials.from_service_account_file(
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"],
+        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+    )
+    vertexai.init(
+        project=VERTEX_PROJECT,
+        location=VERTEX_LOCATION,
+        credentials=creds,
+    )
+
+    chat_model = ChatModel.from_pretrained(model)          # gemini-pro
     chat = chat_model.start_chat()
-
     user_content = "\n".join(m["content"] for m in messages if m["role"] == "user")
     response = chat.send_message(user_content)
     return str(response.text).strip()
