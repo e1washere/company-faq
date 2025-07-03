@@ -1,0 +1,103 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/chat?provider=vertex",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"{{ $json.body.question }}\" }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -100,
+        -60
+      ],
+      "id": "2f969934-d566-4c57-99ea-df66a3c004b4",
+      "name": "llm_gateway"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "llm-gateway",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -60
+      ],
+      "id": "8b1a7728-5b3f-4084-9a0a-3ac399df90b2",
+      "name": "ask_llm",
+      "webhookId": "6bdcc0c7-1334-4fc9-95bb-b87fc34d4998"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C094RTR9MBJ",
+          "mode": "id"
+        },
+        "text": "={{ $json.content }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        120,
+        -60
+      ],
+      "id": "80212992-e559-47f0-ae87-2266837b7cf0",
+      "name": "post_to_slack",
+      "webhookId": "39eb12d6-d027-4709-9702-4ba64b3f6318",
+      "credentials": {
+        "slackApi": {
+          "id": "LZyWzasceax0NuUw",
+          "name": "Slack account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "llm_gateway": {
+      "main": [
+        [
+          {
+            "node": "post_to_slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ask_llm": {
+      "main": [
+        [
+          {
+            "node": "llm_gateway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3859f57c-61fe-448f-b9f3-5b679e87a070",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e3241100c2714f6d49a3684d6275a011c890442be4f3600d5b039c542d6a7d1d"
+  },
+  "id": "cGGUL5YMHl1OzLNM",
+  "tags": []
+}
