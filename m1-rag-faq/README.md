@@ -32,8 +32,10 @@ You: What products does Patrianna build?
 Bot: Patrianna specialises in creating engaging iGaming and web-based gaming products for millions of players worldwide.
 ```
 
-<!-- Screenshot to be added once captured -->
-<!-- ![demo](../docs/m1_demo.png) -->
+### Screenshot tip (optional)
+Run the bot locally, ask a question like *"Which industries does Patrianna operate in?"* and take a terminal screenshot (Cmd + Shift + 4 on macOS). Save it as `docs/m1_demo.png`, commit and the image will render here:
+
+![demo](../docs/m1_demo.png)
 
 ---
 
