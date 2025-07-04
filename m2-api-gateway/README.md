@@ -31,14 +31,12 @@ curl -X POST http://localhost:8000/chat \
      -H "Content-Type: application/json" \
      -d '{
            "provider": "openai",
-           "model": "gpt-3.5-turbo",
-           "messages": [{"role": "user", "content": "Hello"}]
+           "model":    "gpt-3.5-turbo",
+           "messages": [{"role":"user","content":"Ping"}]
          }'
 ```
 
 Expected stream:
 ```
-{"role":"assistant","content":"Hi! How can I help you today?"}
+{"provider":"vertex","model":"gemini-2.5-pro","content":"Pong.\n\nI'm here! Received your message loud and clear.\n\nHow can I help you?"}%                                                             
 ```
-
-![gateway screenshot](../docs/m2_gateway.png) <!-- add after capturing Postman/curl output -->
