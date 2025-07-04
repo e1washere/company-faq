@@ -14,48 +14,40 @@ Minimal retrieval-augmented chatbot that answers questions about the company FAQ
 
 ## Quick start
 ```bash
-# create venv (root of repo)
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# export OpenAI key
 export OPENAI_API_KEY="sk-..."
 
-# build vectors then chat
 cd m1-rag-faq
-python rag_demo.py --rebuild
+python rag_demo.py --rebuild   # builds vectors & starts chat
 ```
 
-Example session:
-```
+### Example session
+```text
 You: What products does Patrianna build?
 Bot: Patrianna specialises in creating engaging iGaming and web-based gaming products for millions of players worldwide.
 ```
 
-### Screenshot tip (optional)
-Run the bot locally, ask a question like *"Which industries does Patrianna operate in?"* and take a terminal screenshot (Cmd + Shift + 4 on macOS). Save it as `docs/m1_demo.png`, commit and the image will render here:
+### Screenshot tip *(optional)*
+Run the bot, ask *"Which industries does Patrianna operate in?"* and capture the terminal. Save as `docs/m1_demo.png` and the image will appear below:
 
 ![demo](../docs/m1_demo.png)
 
 ---
 
 ## Files
-| File | Purpose |
-|------|---------|
-| `data/faq.md` | Source markdown document (company FAQ) |
-| `rag_demo.py` | Loader → splitter → embedder → RAG chat loop |
-| `requirements.txt` | Module-level deps (inherits root) |
+| File              | Purpose                                         |
+| ----------------- | ----------------------------------------------- |
+| `data/faq.md`     | Source markdown document (company FAQ)          |
+| `rag_demo.py`     | Loader → splitter → embedder → RAG chat loop    |
+| `requirements.txt`| Module-level deps (inherits root file)          |
 
 ---
 
 ## Customisation tips
-* **Change embedding size**: edit `chunk_size` / `chunk_overlap` in `rag_demo.py`.
-* **Use Pinecone**: run `python rag_demo.py --rebuild` *after* setting `PINECONE_API_KEY`; vectors will persist to Pinecone instead of local disk (via M7 script).
-* **LLM model**: swap `gpt-3.5-turbo` for `gpt-4o-mini` in one line.
+* **Embedding chunk size** – adjust `chunk_size` / `chunk_overlap` in `rag_demo.py`.
+* **Switch to Pinecone** – set `PINECONE_API_KEY` then rerun with `--rebuild` (handled automatically by M7 logic).
+* **Upgrade model** – change `gpt-3.5-turbo` to `gpt-4o-mini` in one line.
 
-```bash
-# build vectors then chat
-python rag_demo.py --rebuild
 ```
-
-![demo](../docs/query_1.png) 
