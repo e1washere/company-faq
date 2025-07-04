@@ -8,16 +8,14 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, Field
 
-# ─────────────────────────── env ▸
 load_dotenv()
 
 OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY")
 VERTEX_PROJECT   = os.getenv("VERTEX_PROJECT")   or os.getenv("GOOGLE_PROJECT")
 VERTEX_LOCATION  = os.getenv("VERTEX_LOCATION")  or os.getenv("GOOGLE_LOCATION") or "us-central1"
 
-DEFAULT_MODEL    = "gemini-2.5-pro"        # опубликованная модель, работает у всех
+DEFAULT_MODEL    = "gemini-2.5-pro"        
 
-# ─────────────────────────── app ▸
 if not OPENAI_API_KEY:
     print("[WARN] OPENAI_API_KEY not set –- OpenAI provider will fail.")
 
@@ -39,9 +37,8 @@ class ChatResponse(BaseModel):
     model:    str
     content:  str
 
-# ─────────────────────────── back-ends ▸
 def _call_openai(model: str, messages: list[dict]) -> str:
-    from openai import OpenAI          # SDK ≥ 1.0
+    from openai import OpenAI
     client = OpenAI(api_key=OPENAI_API_KEY)
     resp   = client.chat.completions.create(model=model, messages=messages)
     return resp.choices[0].message.content.strip()
@@ -57,12 +54,11 @@ def _call_vertex(model: str, messages: list[dict]) -> str:
     answer   = chat.send_message(user_txt)
     return str(answer.text).strip()
 
-# ─────────────────────────── route ▸
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(
     req: ChatRequest,
     provider: Provider = Query(
-        Provider.vertex,                 # ставим Vertex по-умолчанию
+        Provider.vertex,
         description="LLM backend to use (openai / vertex)"
     ),
     model: str = Query(
@@ -83,7 +79,6 @@ async def chat_endpoint(
 
     return ChatResponse(provider=provider, model=model, content=content)
 
-# ─────────────────────────── local run ▸
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("api_gateway:app", host="0.0.0.0", port=8000, reload=True)
