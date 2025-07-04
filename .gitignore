@@ -1,6 +1,6 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
-*.py[codz]
+*.py[cod]
 *$py.class
 
 # C extensions
@@ -218,3 +218,25 @@ m1-rag-faq/vector_store/
 .env
 *.venvvector_store/
 .env
+
+# Virtual envs
+.venv/
+
+# Secrets
+.env
+env.example
+
+# OS
+.DS_Store
+
+# Vector stores & indexes
+vector_store/
+chroma_*/
+faiss_*.idx
+chroma_faq/
+
+# n8n desktop
+.n8n/
+
+# Jupyter / Vertex
+*.ipynb_checkpoints

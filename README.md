@@ -1,14 +1,94 @@
 # Company-FAQ • Mini AI Portfolio
 
-| Module | Stack | Why it matters |
-|--------|-------|----------------|
-| **M1 – RAG FAQ Bot** | LangChain + Chroma + OpenAI | embeddings / retrieval |
-| **M2 – LLM API Gateway** | FastAPI ↔ OpenAI / Vertex | production endpoint |
-| **M3 – Auto-Reporter Agent** | LangChain Agent + BigQuery + Slack | agent orchestration |
-| **M4 – n8n Flow** | Webhook › HTTP › Slack | low-code workflows |
-| **M5 – SQL + ETL** | BigQuery, window func | data-engineering chops |
-| **M6 – Vertex Notebook** | Gemini 2.5 Flash | GCP ML tooling |
+A collection of bite-sized projects that together showcase a full AI-Engineer skill-set — from **RAG** and **LLM gateways** to **SQL ETL** and **Vertex AI notebooks**.
 
-_Plug-and-play mini-projects covering every bullet of Patrianna’s AI-Engineer vacancy._  
-See each folder for 30-sec run instructions & screenshots.  
-![arch](docs/architecture.png)
+![architecture diagram](docs/architecture.png)
+
+---
+
+## Project map
+
+| Module | Folder | What it proves |
+| ------ | ------ | -------------- |
+| **M1 – RAG FAQ Bot** | [`m1-rag-faq`](./m1-rag-faq/) | Embeddings, retrieval, LangChain basics |
+| **M2 – LLM API Gateway** | [`m2-api-gateway`](./m2-api-gateway/) | FastAPI ↔ OpenAI / Vertex, production patterns |
+| **M3 – Auto-Reporter Agent** | [`m3-auto-reporter`](./m3-auto-reporter/) | LangChain Agent, BigQuery, Slack integration |
+| **M4 – n8n Flow** | [`m4-n8n`](./m4-n8n/) | Low-code orchestration (Webhook → HTTP → Slack) |
+| **M5 – SQL + ETL** | [`m5-sql-etl`](./m5-sql-etl/) | Window functions, scheduling, data-engineering chops |
+| **M6 – Vertex Notebook** | [`m6-vertex-notebook`](./m6-vertex-notebook/) | Gemini 2.5 Flash, GCP ML tooling |
+| **M7 – Vector-DB Swap** | [`pinecone_demo.py`](./pinecone_demo.py) | Pinecone ↔ FAISS ↔ Chroma hot-swap |
+
+*(Each folder contains its own README with 30-sec run instructions & screenshots.)*
+
+---
+
+## Quick start (RAG demo)
+
+```bash
+# 1. Clone & enter
+git clone https://github.com/e1washere/company-faq.git
+cd company-faq
+
+# 2. Python env
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# 3. Mandatory keys
+export OPENAI_API_KEY="sk-…"
+
+# 4. (Optional) Pinecone creds for live index
+export PINECONE_API_KEY="pc-…"      # v3 or v2 key
+export PINECONE_REGION="us-east-1"   # v3, default aws/us-east-1
+# OR legacy
+env var
+export PINECONE_ENV="my-env-id"      # v2 environment name
+
+# 5. Build vectors & ask one question
+python pinecone_demo.py --rebuild --query "What is Patrianna?"
+
+# 6. Chat interactively
+python pinecone_demo.py
+```
+
+> No Pinecone? No FAISS? The script automatically falls back to local **Chroma**, so it always works out-of-the-box.
+
+---
+
+## Module walk-through
+
+| # | Highlight |
+| - | -------- |
+| **M1** | LangChain 0.2, `ConversationalRetrievalChain`, Chroma → Pinecone vector stores |
+| **M2** | Production-grade REST gateway (FastAPI) with pluggable LLM back-ends + streaming responses |
+| **M3** | Autonomous agent that queries BigQuery and posts rich Slack reports on schedule |
+| **M4** | Pure n8n flow file demonstrating low-code webhook → transformation → notification |
+| **M5** | Advanced SQL (window, CTE) + cron-ready ETL scripts |
+| **M6** | Vertex AI Workbench notebook running Gemini Flash for rapid prototyping |
+| **M7** | `pinecone_demo.py` – swap-able vector-DB layer (Pinecone v3/v2 → FAISS → Chroma) |
+
+---
+
+## Environment variables
+
+| Var | Purpose | Example |
+| --- | ------- | ------- |
+| `OPENAI_API_KEY` | Required for embeddings / chat | `sk-…` |
+| `PINECONE_API_KEY` | Use managed Pinecone (v3 or v2) | `pc-…` |
+| `PINECONE_REGION` | v3 region (default `us-east-1`) | `us-east-1` |
+| `PINECONE_CLOUD` | v3 cloud provider (`aws`/`gcp`) | `aws` |
+| `PINECONE_ENV` / `PINECONE_ENVIRONMENT` | v2 environment ID | `gcp-starter` |
+| `CHROMA_TELEMETRY_ENABLED` | Disable Chroma telemetry | `false` |
+
+---
+
+## Tech stack
+
+* Python 3.11
+* LangChain 0.2 + `langchain_openai`
+* Vector DBs: **Pinecone**, **FAISS**, **Chroma**
+* FastAPI, BigQuery, Slack SDK
+* n8n (low-code), SQL (BigQuery dialect)
+* GCP Vertex AI + Gemini 2.5 Flash
+
+_Plug-and-play mini-projects covering every bullet of Patrianna's AI-Engineer vacancy._
+See each folder for 30-sec run instructions & screenshots.
