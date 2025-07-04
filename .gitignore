@@ -216,15 +216,9 @@ m1-rag-faq/vector_store/
 
 # local envs & secrets
 .env
-*.venvvector_store/
-.env
 
 # Virtual envs
 .venv/
-
-# Secrets
-.env
-env.example
 
 # OS
 .DS_Store
