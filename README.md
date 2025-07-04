@@ -96,5 +96,4 @@ python pinecone_demo.py
 * n8n (low-code), SQL (BigQuery dialect)
 * GCP Vertex AI + Gemini 2.5 Flash
 
-_Plug-and-play mini-projects covering every bullet of Patrianna's AI-Engineer vacancy._
 See each folder for 30-sec run instructions & screenshots.
