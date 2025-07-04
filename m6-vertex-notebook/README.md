@@ -11,3 +11,16 @@ Lightweight notebook demonstrating Gemini 2.5 Flash prompts inside Vertex AI Wor
    ```
 
 Outputs show rapid JSON generation and cost metrics. 
+
+![notebook screenshot](../docs/vertex_flash.png)
+
+If you prefer scripting, run:
+```bash
+python gemini_flash_demo.py
+```
+
+Or convert to a notebook locally:
+```bash
+pip install jupytext
+jupytext --to notebook gemini_flash_demo.py
+```
