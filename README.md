@@ -1,7 +1,8 @@
+# Company-FAQ • Mini AI Portfolio
+
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![LangChain](https://img.shields.io/badge/LangChain-0.2+-orange)
-# Company-FAQ • Mini AI Portfolio
 
 A collection of bite-sized projects that together showcase a full AI-Engineer skill-set — from **RAG** and **LLM gateways** to **SQL ETL** and **Vertex AI notebooks**.
 
