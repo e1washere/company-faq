@@ -1,17 +1,44 @@
-## LLM API Gateway (M2)
+# LLM API Gateway (M2)
 
-FastAPI сервис с единственным эндпоинтом `/chat`.
+Thin FastAPI layer that hides differences between **OpenAI** and **Vertex AI** chat endpoints.
 
-| provider | модели                           |
-|----------|----------------------------------|
-| openai   | gpt-3.5-turbo, gpt-4o-mini       |
-| vertex   | gemini-pro (us-central1)         |
+*Single POST endpoint*: `/chat` accepts `{provider, model, messages}` and streams the reply.
 
-### Запуск
+| Provider | Supported models             |
+|----------|------------------------------|
+| openai   | gpt-3.5-turbo, gpt-4o-mini   |
+| vertex   | gemini-pro (us-central1)     |
+
+---
+
+## Quick start
 ```bash
+cd m2-api-gateway
 pip install -r requirements.txt
-export OPENAI_API_KEY=…
-export VERTEX_PROJECT=patrianna-rag-demo
-export VERTEX_LOCATION=us-central1
+
+# minimum env vars
+export OPENAI_API_KEY="sk-..."      # for OpenAI requests
+export VERTEX_PROJECT="my-gcp-proj"
+export VERTEX_LOCATION="us-central1"
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/keys/vertex-sa.json
-uvicorn api_gateway:app --port 8000
+
+uvicorn api_gateway:app --port 8000 --reload
+```
+
+### Example request
+```bash
+curl -X POST http://localhost:8000/chat \
+     -H "Content-Type: application/json" \
+     -d '{
+           "provider": "openai",
+           "model": "gpt-3.5-turbo",
+           "messages": [{"role": "user", "content": "Hello"}]
+         }'
+```
+
+Expected stream:
+```
+{"role":"assistant","content":"Hi! How can I help you today?"}
+```
+
+![gateway screenshot](../docs/m2_gateway.png) <!-- add after capturing Postman/curl output -->
