@@ -1,29 +1,3 @@
-#!/usr/bin/env python3
-"""
-pinecone_demo.py
-=================
-Retrieval-Augmented Generation demo that stores embeddings in a Pinecone v3
-index (Serverless). If `PINECONE_API_KEY` is missing, it gracefully falls back
-to a local Chroma store so the script can run offline.
-
-Usage
------
-Rebuild vectors then ask one question:
-
-    python pinecone_demo.py --source m1-rag-faq/data/faq.md \
-                            --query "What is Patrianna?" --rebuild
-
-Chat after vectors exist:
-
-    python pinecone_demo.py
-
-Environment
------------
-OPENAI_API_KEY            – required
-PINECONE_API_KEY          – optional (enables Pinecone)
-PINECONE_REGION           – default "us-east-1"
-PINECONE_CLOUD            – default "aws"
-"""
 from __future__ import annotations
 
 import argparse
@@ -125,8 +99,6 @@ def main() -> None:
     if args.query:
         print(ask(args.query))
         return
-
-    # Interactive loop
     try:
         while True:
             q = input("\nYou: ")
