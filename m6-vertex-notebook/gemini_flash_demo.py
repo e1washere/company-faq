@@ -1,10 +1,3 @@
-"""gemini_flash_demo.py
-Standalone script that can run locally **or** be converted to a Jupyter
-notebook with Jupytext (`pip install jupytext && jupytext --to notebook gemini_flash_demo.py`).
-The code demonstrates calling Gemini 2.5 Flash on Vertex AI.
-"""
-
-# Install deps when running in plain python (skip if in notebook)
 try:
     import google.generativeai as genai  # type: ignore
     import vertexai                     # type: ignore
