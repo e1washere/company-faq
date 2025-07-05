@@ -1,5 +1,5 @@
-   | **M7 – Vector-DB Swap** | [m7-vector-swap](./m7-vector-swap/) | Pinecone ↔ Chroma hot-swap |
-   
+   # Vector-DB Swap Demo (M7)
+
    One Python script that decides at runtime which vector store to use:
 
    | Order | Store | When chosen |

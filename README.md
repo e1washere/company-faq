@@ -22,7 +22,7 @@ A collection of bite-sized projects that together showcase a full AI-Engineer sk
 | **M4 – n8n Flow** | [`m4-n8n`](./m4-n8n/) | Low-code orchestration (Webhook → HTTP → Slack) |
 | **M5 – SQL + ETL** | [`m5-sql-etl`](./m5-sql-etl/) | Window functions, scheduling, data-engineering chops |
 | **M6 – Vertex Notebook** | [`m6-vertex-notebook`](./m6-vertex-notebook/) | Gemini 2.5 Flash, GCP ML tooling |
-| **M7 – Vector-DB Swap** | [`pinecone_demo.py`](./pinecone_demo.py) | Pinecone ↔ FAISS ↔ Chroma hot-swap |
+| **M7 – Vector-DB Swap** | [`m7-vector-swap`](./m7-vector-swap/) | Pinecone ↔ Chroma hot-swap |
 
 *(Each folder contains its own README with 30-sec run instructions & screenshots.)*
 
