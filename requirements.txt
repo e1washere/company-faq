@@ -1,14 +1,13 @@
 # Core
 langchain~=0.2
 langchain-openai~=0.1
-chromadb~=0.5
+chromadb~=0.6
 openai>=1.2
 python-dotenv
 
 # Vector stores
 pinecone-client~=3.0
-faiss-cpu ; platform_machine!="arm64"
-faiss-cpu ; platform_system=="Darwin" and platform_machine=="arm64"
+faiss-cpu ; platform_system!="Darwin" or platform_machine!="arm64"
 
 # Web / API
 fastapi
@@ -16,4 +15,5 @@ uvicorn[standard]
 
 # Cloud & integrations
 google-cloud-bigquery
+google-generativeai
 slack_sdk 
