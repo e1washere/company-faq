@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   lint-test:
@@ -14,12 +10,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - name: Import pinecone demo
-        run: |
-          python - <<'PY'
-          import pathlib, sys
-          sys.path.append(str(pathlib.Path('modules').resolve()))
-          import modules.m7_vector_swap.pinecone_demo as demo
-          print('import ok')
-          PY
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Run Ruff lint
+        run: ruff .
+      - name: Black formatting check
+        run: black --check .
+      - name: Run unit tests
+        run: pytest -q
