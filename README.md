@@ -14,13 +14,13 @@ A collection of bite-sized projects that together showcase a full AI-Engineer sk
 
 | Module | Folder | What it proves |
 | ------ | ------ | -------------- |
-| **M1 – RAG FAQ Bot** | [`m1-rag-faq`](./m1-rag-faq/) | Embeddings, retrieval, LangChain basics |
-| **M2 – LLM API Gateway** | [`m2-api-gateway`](./m2-api-gateway/) | FastAPI ↔ OpenAI / Vertex, production patterns |
-| **M3 – Auto-Reporter Agent** | [`m3-auto-reporter`](./m3-auto-reporter/) | LangChain Agent, BigQuery, Slack integration |
-| **M4 – n8n Flow** | [`m4-n8n`](./m4-n8n/) | Low-code orchestration (Webhook → HTTP → Slack) |
-| **M5 – SQL + ETL** | [`m5-sql-etl`](./m5-sql-etl/) | Window functions, scheduling, data-engineering chops |
-| **M6 – Vertex Notebook** | [`m6-vertex-notebook`](./m6-vertex-notebook/) | Gemini 2.5 Flash, GCP ML tooling |
-| **M7 – Vector-DB Swap** | [`m7-vector-swap`](./m7-vector-swap/) | Pinecone ↔ Chroma hot-swap |
+| **M1 – RAG FAQ Bot**         | [`modules/m1-rag-faq`](./modules/m1-rag-faq/)                 | Embeddings, retrieval, LangChain basics              |
+| **M2 – LLM API Gateway**     | [`modules/m2-api-gateway`](./modules/m2-api-gateway/)         | FastAPI ↔ OpenAI / Vertex, production patterns       |
+| **M3 – Auto-Reporter Agent** | [`modules/m3-auto-reporter`](./modules/m3-auto-reporter/)     | LangChain Agent, BigQuery, Slack integration         |
+| **M4 – n8n Flow**            | [`modules/m4-n8n`](./modules/m4-n8n/)                         | Low-code orchestration (Webhook → HTTP → Slack)      |
+| **M5 – SQL + ETL**           | [`modules/m5-sql-etl`](./modules/m5-sql-etl/)                 | Window functions, scheduling, data-engineering chops |
+| **M6 – Vertex Notebook**     | [`modules/m6-vertex-notebook`](./modules/m6-vertex-notebook/) | Gemini 2.5 Flash, GCP ML tooling                     |
+| **M7 – Vector-DB Swap**      | [`modules/m7-vector-swap`](./modules/m7-vector-swap/)         | Pinecone ↔ Chroma hot-swap                           |
 
 *(Each folder contains its own README with 30-sec run instructions & screenshots.)*
 
