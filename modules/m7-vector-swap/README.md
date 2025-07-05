@@ -18,5 +18,5 @@
    python pinecone_demo.py
    ```
 
-   ![screenshot](../docs/m7_swap.png)
+   ![demo](../../docs/m7_swap.png)
    

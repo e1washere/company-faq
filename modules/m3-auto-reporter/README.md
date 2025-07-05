@@ -24,4 +24,4 @@ Run manually or via cron / Cloud Scheduler.
 0 8 * * * cd /opt/company-faq/m3-auto-reporter && /usr/bin/python reporter.py --days 1 >> /var/log/auto_reporter.log 2>&1
 ```
 
-![report screenshot](../docs/m3_report.png)
+![report screenshot](../../docs/m3_report.png)

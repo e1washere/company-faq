@@ -40,3 +40,5 @@ Expected stream:
 ```
 {"provider":"vertex","model":"gemini-2.5-pro","content":"Pong.\n\nI'm here! Received your message loud and clear.\n\nHow can I help you?"}%                                                             
 ```
+
+![gateway screenshot](../../docs/m2_gateway.png)

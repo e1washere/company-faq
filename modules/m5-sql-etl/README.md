@@ -3,7 +3,7 @@
 *Creates staging table → transforms to final table → simple analytics query
 with a window function.*
 – see m5_etl_demo.sql
-![Query result](../docs/m5_etl_result.png)
+![Query result](../../docs/m5_etl_result.png)
 
 | dept   | full_name | salary | rank_in_dept |
 |--------|-----------|--------|--------------|

@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Import pinecone demo
+        run: |
+          python - <<'PY'
+          import pathlib, sys
+          sys.path.append(str(pathlib.Path('modules').resolve()))
+          import modules.m7_vector_swap.pinecone_demo as demo
+          print('import ok')
+          PY

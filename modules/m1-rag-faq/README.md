@@ -45,4 +45,4 @@ Bot: Patrianna specialises in creating engaging iGaming and web-based gaming pro
 * **Switch to Pinecone** – set `PINECONE_API_KEY` then rerun with `--rebuild` (handled automatically by M7 logic).
 * **Upgrade model** – change `gpt-3.5-turbo` to `gpt-4o-mini` in one line.
 
-```
+![demo](../../docs/m1_demo.png)
