@@ -8,8 +8,6 @@ A collection of bite-sized projects that together showcase a full AI-Engineer sk
 
 ![architecture diagram](docs/architecture.png)
 
-![architecture diagram](./architecture.png)
-
 ---
 
 ## Project map
