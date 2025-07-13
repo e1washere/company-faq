@@ -15,7 +15,7 @@ class TestRAGDemo:
         with patch('rag_demo.TextLoader') as mock_loader, \
              patch('rag_demo.RecursiveCharacterTextSplitter') as mock_splitter, \
              patch('rag_demo.Chroma') as mock_chroma, \
-             patch('rag_demo.OpenAIEmbeddings') as mock_embeddings:
+             patch('rag_demo.OpenAIEmbeddings'):
             
             # Mock the loader
             mock_doc = MagicMock()
@@ -41,7 +41,7 @@ class TestRAGDemo:
     def test_load_vectordb_mock(self):
         """Test loading existing vector database."""
         with patch('rag_demo.Chroma') as mock_chroma, \
-             patch('rag_demo.OpenAIEmbeddings') as mock_embeddings:
+             patch('rag_demo.OpenAIEmbeddings'):
             
             mock_vectordb = MagicMock()
             mock_chroma.return_value = mock_vectordb

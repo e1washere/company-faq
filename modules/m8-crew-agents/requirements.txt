@@ -1,0 +1,13 @@
+# CrewAI Agents Module (M8) Dependencies
+
+# Core dependencies
+python-dotenv
+
+# Future: Replace with actual CrewAI when ready for production
+# crewai
+# crewai-tools
+
+# Optional: For real LLM integration
+# openai>=1.2
+# langchain~=0.2
+# langchain-openai~=0.1 

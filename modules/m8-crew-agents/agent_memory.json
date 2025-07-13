@@ -1,0 +1,116 @@
+{
+  "conversations": [
+    {
+      "agent": "Data Analyst",
+      "task": "Can you analyze the recent data?",
+      "response": "[Data Analyst] Processing: Can you analyze the recent data?\nContext: {\n  \"user_query\": \"Can you analyze the recent data?\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nPrevious insights: 5 patterns identified",
+      "context": {
+        "user_query": "Can you analyze the recent data?",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:11:06.438783"
+    },
+    {
+      "agent": "Report Generator",
+      "task": "Generate a report please",
+      "response": "[Report Generator] Processing: Generate a report please\nContext: {\n  \"user_query\": \"Generate a report please\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Report Generator\"\n}\nRecent interactions: 1 conversations\nPrevious insights: 5 patterns identified",
+      "context": {
+        "user_query": "Generate a report please",
+        "session_type": "interactive",
+        "agent_selected": "Report Generator"
+      },
+      "timestamp": "2025-07-13T23:11:06.438922"
+    },
+    {
+      "agent": "Root Cause Analyzer",
+      "task": "There's a problem with the system",
+      "response": "[Root Cause Analyzer] Processing: There's a problem with the system\nContext: {\n  \"user_query\": \"There's a problem with the system\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Root Cause Analyzer\"\n}\nRecent interactions: 2 conversations\nPrevious insights: 5 patterns identified",
+      "context": {
+        "user_query": "There's a problem with the system",
+        "session_type": "interactive",
+        "agent_selected": "Root Cause Analyzer"
+      },
+      "timestamp": "2025-07-13T23:11:06.439028"
+    },
+    {
+      "agent": "Data Analyst",
+      "task": "Hello",
+      "response": "[Data Analyst] Processing: Hello\nContext: {\n  \"user_query\": \"Hello\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nRecent interactions: 3 conversations\nPrevious insights: 5 patterns identified",
+      "context": {
+        "user_query": "Hello",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:11:06.439235"
+    },
+    {
+      "agent": "Data Analyst",
+      "task": "What patterns do you see?",
+      "response": "[Data Analyst] Processing: What patterns do you see?\nContext: {\n  \"user_query\": \"What patterns do you see?\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nRecent interactions: 3 conversations\nPrevious insights: 8 patterns identified",
+      "context": {
+        "user_query": "What patterns do you see?",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:11:06.440849"
+    },
+    {
+      "agent": "Data Analyst",
+      "task": "First query",
+      "response": "[Data Analyst] Processing: First query\nContext: {\n  \"user_query\": \"First query\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nRecent interactions: 3 conversations\nPrevious insights: 8 patterns identified",
+      "context": {
+        "user_query": "First query",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:11:06.441738"
+    },
+    {
+      "agent": "Data Analyst",
+      "task": "Second query",
+      "response": "[Data Analyst] Processing: Second query\nContext: {\n  \"user_query\": \"Second query\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nRecent interactions: 3 conversations\nPrevious insights: 8 patterns identified",
+      "context": {
+        "user_query": "Second query",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:11:06.442120"
+    }
+  ],
+  "insights": [
+    {
+      "content": "Data analysis revealed 2 key trends",
+      "timestamp": "2025-07-13T23:11:06.437317"
+    },
+    {
+      "content": "Generated report with 2 trends and 1 recommendations",
+      "timestamp": "2025-07-13T23:11:06.437474"
+    },
+    {
+      "content": "Root cause analysis completed for: Data anomalies detected",
+      "timestamp": "2025-07-13T23:11:06.437568"
+    },
+    {
+      "content": "Data analysis revealed 2 key trends",
+      "timestamp": "2025-07-13T23:11:06.438090"
+    },
+    {
+      "content": "Generated report with 2 trends and 1 recommendations",
+      "timestamp": "2025-07-13T23:11:06.438193"
+    },
+    {
+      "content": "Data analysis revealed 2 key trends",
+      "timestamp": "2025-07-13T23:11:06.440446"
+    },
+    {
+      "content": "Generated report with 2 trends and 1 recommendations",
+      "timestamp": "2025-07-13T23:11:06.440602"
+    },
+    {
+      "content": "Root cause analysis completed for: Data anomalies detected",
+      "timestamp": "2025-07-13T23:11:06.440721"
+    }
+  ],
+  "patterns": []
+}

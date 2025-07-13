@@ -24,7 +24,8 @@ CHROMA_DIR = "chroma_faq"
 def load_documents(src: Path) -> list[Document]:
     """Split markdown file into 400-char chunks."""
     text = src.read_text(encoding="utf-8")
-    chunks = MarkdownTextSplitter(chunk_size=400, chunk_overlap=40, add_start_index=True).split_text(text)
+    splitter = MarkdownTextSplitter(chunk_size=400, chunk_overlap=40, add_start_index=True)
+    chunks = splitter.split_text(text)
     return [Document(page_content=c, metadata={"src": str(src)}) for c in chunks]
 
 
@@ -88,7 +89,8 @@ def main() -> None:
     print(f"✓ Vector store ready – {backend}")
 
     retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-    chain = ConversationalRetrievalChain.from_llm(ChatOpenAI(model="gpt-3.5-turbo", temperature=0), retriever)
+    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+    chain = ConversationalRetrievalChain.from_llm(llm, retriever)
 
     history: List[Tuple[str, str]] = []
 

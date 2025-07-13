@@ -18,7 +18,8 @@ class TestVectorSwap:
     def test_load_documents(self):
         """Test loading and splitting documents."""
         with patch('pinecone_demo.Path') as mock_path:
-            mock_path.return_value.read_text.return_value = "# Header\n\nSome content\n\n## Another Header\n\nMore content"
+            test_content = "# Header\n\nSome content\n\n## Another Header\n\nMore content"
+            mock_path.return_value.read_text.return_value = test_content
             
             result = load_documents(Path("test.md"))
             
@@ -65,7 +66,7 @@ class TestVectorSwap:
         
         # Mock Pinecone client
         with patch('pinecone_demo.Pinecone') as mock_pinecone_class, \
-             patch('pinecone_demo.ServerlessSpec') as mock_serverless, \
+             patch('pinecone_demo.ServerlessSpec'), \
              patch('pinecone_demo.PineconeVectorStore') as mock_vector_store:
             
             mock_pc = MagicMock()

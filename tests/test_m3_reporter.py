@@ -69,7 +69,8 @@ class TestAutoReporter:
         # Mock the template file
         with patch('reporter.Path') as mock_path:
             mock_template = "Events found: {n}\n\nData:\n{table}"
-            mock_path.return_value.with_name.return_value.joinpath.return_value.read_text.return_value = mock_template
+            mock_path_chain = mock_path.return_value.with_name.return_value.joinpath.return_value
+            mock_path_chain.read_text.return_value = mock_template
             
             result = build_prompt(df)
             

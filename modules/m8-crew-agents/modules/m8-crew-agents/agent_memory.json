@@ -1,0 +1,52 @@
+{
+  "conversations": [
+    {
+      "agent": "Data Analyst",
+      "task": "Can you analyze the recent performance data?",
+      "response": "[Data Analyst] Processing: Can you analyze the recent performance data?\nContext: {\n  \"user_query\": \"Can you analyze the recent performance data?\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Data Analyst\"\n}\nPrevious insights: 3 patterns identified",
+      "context": {
+        "user_query": "Can you analyze the recent performance data?",
+        "session_type": "interactive",
+        "agent_selected": "Data Analyst"
+      },
+      "timestamp": "2025-07-13T23:07:57.178309"
+    },
+    {
+      "agent": "Report Generator",
+      "task": "Generate a report on system health",
+      "response": "[Report Generator] Processing: Generate a report on system health\nContext: {\n  \"user_query\": \"Generate a report on system health\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Report Generator\"\n}\nRecent interactions: 1 conversations\nPrevious insights: 3 patterns identified",
+      "context": {
+        "user_query": "Generate a report on system health",
+        "session_type": "interactive",
+        "agent_selected": "Report Generator"
+      },
+      "timestamp": "2025-07-13T23:07:57.178545"
+    },
+    {
+      "agent": "Root Cause Analyzer",
+      "task": "There's a problem with the API response times",
+      "response": "[Root Cause Analyzer] Processing: There's a problem with the API response times\nContext: {\n  \"user_query\": \"There's a problem with the API response times\",\n  \"session_type\": \"interactive\",\n  \"agent_selected\": \"Root Cause Analyzer\"\n}\nRecent interactions: 2 conversations\nPrevious insights: 3 patterns identified",
+      "context": {
+        "user_query": "There's a problem with the API response times",
+        "session_type": "interactive",
+        "agent_selected": "Root Cause Analyzer"
+      },
+      "timestamp": "2025-07-13T23:07:57.178826"
+    }
+  ],
+  "insights": [
+    {
+      "content": "Data analysis revealed 2 key trends",
+      "timestamp": "2025-07-13T23:07:57.177496"
+    },
+    {
+      "content": "Generated report with 2 trends and 1 recommendations",
+      "timestamp": "2025-07-13T23:07:57.178043"
+    },
+    {
+      "content": "Root cause analysis completed for: Data anomalies detected",
+      "timestamp": "2025-07-13T23:07:57.178172"
+    }
+  ],
+  "patterns": []
+}
