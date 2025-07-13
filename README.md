@@ -7,7 +7,7 @@
 
 A collection of bite-sized projects that together showcase a full AI-Engineer skill-set — from **RAG** and **LLM gateways** to **SQL ETL** and **Vertex AI notebooks**.
 
-![architecture diagram](architecture.png)
+![architecture diagram](docs/architecture.png)
 
 ---
 
