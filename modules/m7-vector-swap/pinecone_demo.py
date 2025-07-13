@@ -11,8 +11,9 @@ from dotenv import load_dotenv
 from langchain.chains import ConversationalRetrievalChain
 from langchain.schema import Document
 from langchain.text_splitter import MarkdownTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma, Pinecone as PineconeVectorStore
 
 load_dotenv()
 

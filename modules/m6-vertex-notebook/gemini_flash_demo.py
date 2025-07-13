@@ -1,11 +1,12 @@
 try:
     import google.generativeai as genai  # type: ignore
-    import vertexai                     # type: ignore
+    import vertexai  # type: ignore
 except ImportError:
-    import subprocess, sys
+    import subprocess
+    import sys
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "google-cloud-aiplatform", "google-generativeai"])
     import google.generativeai as genai  # type: ignore
-    import vertexai                     # type: ignore
+    import vertexai  # type: ignore
 
 import os
 

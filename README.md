@@ -73,6 +73,44 @@ python pinecone_demo.py
 
 ---
 
+## 🚀 One-Command Cloud Run Deploy
+
+Deploy the LLM API Gateway to Google Cloud Run in seconds:
+
+```bash
+# 1. Prerequisites
+gcloud auth login
+gcloud config set project YOUR_PROJECT_ID
+
+# 2. Deploy in one command
+./deploy.sh YOUR_PROJECT_ID us-central1
+
+# 3. Set API keys (after deployment)
+gcloud run services update company-faq-api --region=us-central1 \
+  --set-env-vars="OPENAI_API_KEY=sk-...,VERTEX_PROJECT=YOUR_PROJECT_ID"
+```
+
+**What gets deployed:**
+- **Production-ready FastAPI server** (Module M2) with OpenAI + Vertex AI support
+- **Auto-scaling** from 0 to 10 instances based on traffic
+- **Built-in monitoring** and logging via Cloud Run
+- **Public HTTPS endpoint** with automatic SSL
+
+**Example usage:**
+```bash
+# Test the deployed API
+curl -X POST https://company-faq-api-xxx.a.run.app/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Hello!"}]}'
+```
+
+**Requirements:**
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) installed
+- Active GCP project with billing enabled
+- Docker (automatically handled by Cloud Build)
+
+---
+
 ## Environment variables
 
 | Var | Purpose | Example |

@@ -5,12 +5,12 @@ from pathlib import Path
 from typing import List, Tuple
 
 from dotenv import load_dotenv
-from langchain_community.document_loaders import TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_openai.embeddings import OpenAIEmbeddings           
-from langchain_openai.chat_models import ChatOpenAI              
-from langchain_community.vectorstores import Chroma
 from langchain.chains import ConversationalRetrievalChain
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import TextLoader
+from langchain_community.vectorstores import Chroma
+from langchain_openai.chat_models import ChatOpenAI
+from langchain_openai.embeddings import OpenAIEmbeddings
 
 load_dotenv()
 

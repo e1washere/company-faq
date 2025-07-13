@@ -1,6 +1,11 @@
 from __future__ import annotations
-import os, datetime as dt, pandas as pd, requests
+
+import datetime as dt
+import os
 from pathlib import Path
+
+import pandas as pd
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,6 +17,7 @@ LOCAL_CSV = os.getenv("CSV_PATH", "m3-auto-reporter/data/events.csv")
 
 import vertexai
 from vertexai.generative_models import GenerativeModel
+
 vertexai.init(project=PROJECT, location=LOCATION)
 MODEL = GenerativeModel("gemini-2.5-pro")
 
