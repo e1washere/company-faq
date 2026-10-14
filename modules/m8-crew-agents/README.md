@@ -1,217 +1,51 @@
-# CrewAI Agents Module (M8)
+# M8 — mock role-based workflow
 
-**Intelligent Agent Orchestration & Autonomy System**
+A Python orchestration exercise with shared JSON history. The folder name is historical: the current implementation does not use the CrewAI library and does not call an LLM.
 
-This module demonstrates advanced AI agent capabilities perfectly aligned with Patrianna's requirements for:
-- Agent Orchestration & Autonomy
-- Feedback and memory mechanisms
-- Context-aware, evolving agents
-- Automated report generation
-- Root cause analysis
+## Execution path
 
----
+`CrewOrchestrator.automated_analysis_workflow(data)`:
 
-## Features
+1. Calls `DataAnalystAgent.analyze_data()`.
+2. Passes that result to `ReportGeneratorAgent.generate_report()`.
+3. Calls `RootCauseAnalyzer.analyze_issue()` when the input contains anomalies.
+4. Returns the analysis, formatted report, optional root-cause result, and status.
 
-### 🤖 **Multi-Agent System**
-- **Data Analyst Agent**: Analyzes data patterns and generates actionable insights
-- **Report Generator Agent**: Creates comprehensive reports from analysis
-- **Root Cause Analyzer**: Identifies root causes of problems and anomalies
-- **CrewOrchestrator**: Coordinates multiple agents working together
+`interactive_session()` selects a role using keywords and invokes `MockLLMAgent.process_task()`.
 
-### 🧠 **Memory & Context System**
-- **Persistent Memory**: Stores conversations, insights, and patterns
-- **Context-Aware Responses**: Agents use historical context for better decisions
-- **Learning & Evolution**: Agents improve over time through accumulated insights
+## Implemented versus simulated
 
-### 🔄 **Automated Workflows**
-- **Automated Analysis Pipeline**: Data → Analysis → Report → Root Cause (if needed)
-- **Interactive Sessions**: Context-aware conversations with appropriate agent selection
-- **Feedback Loops**: Continuous improvement through memory and insights
+| Implemented | Simulated or absent |
+| --- | --- |
+| Python classes and sequential method calls | CrewAI framework integration |
+| JSON history and insight storage through `AgentMemory` | LLM inference and tool selection |
+| Formatting a report from a dictionary | Data-derived trends and root-cause diagnosis |
+| Keyword-based interactive routing | Model learning, autonomous planning, and measured feedback improvement |
 
----
+The analysis method returns fixed trends and recommendations. Root-cause analysis returns a fixed proposed cause. Values such as `confidence` are example constants, not calibrated model estimates.
 
-## Quick Start
+The summary uses `len(data)`, which counts dictionary keys; it does not necessarily count observations.
+
+## Run the local mock
+
+From the repository root, inside your Python environment:
 
 ```bash
-cd modules/m8-crew-agents
-python crew_agents.py
+python -m pip install -r modules/m8-crew-agents/requirements.txt
+python modules/m8-crew-agents/crew_agents.py
 ```
 
-### Example Output
-```
-=== Automated Analysis Workflow ===
-Workflow Status: completed
-Analysis: Analyzed 3 data points
+No LLM credentials are needed for the mock behavior. A clean dependency installation and complete script run have not been verified as part of this documentation update.
 
-=== Interactive Session ===
-Query: Can you analyze the recent performance data?
-Response: [Data Analyst] Processing: Can you analyze the recent performance data?...
+The script writes JSON history at a path relative to the current working directory. Running from the repository root avoids an unintended nested `modules/` directory. Use sample inputs; inspect generated history before committing it.
 
-=== Memory & Context Demonstration ===
-Recent conversations: 4
-Accumulated insights: 3
-```
+## Limitations
 
----
+- No locking or transactional storage for concurrent writers.
+- No bounded-history policy or automatic learning mechanism.
+- Returning `workflow_status: completed` does not establish analytical correctness.
+- This module is useful for studying orchestration structure, not as evidence of a deployed multi-agent AI system.
 
-## Architecture
+## Source
 
-### Agent Classes
-```python
-class MockLLMAgent:
-    """Base agent with memory and context awareness"""
-    
-class DataAnalystAgent(MockLLMAgent):
-    """Specialized for data analysis and insights"""
-    
-class ReportGeneratorAgent(MockLLMAgent):
-    """Automated report generation"""
-    
-class RootCauseAnalyzer(MockLLMAgent):
-    """Problem analysis and solution recommendations"""
-```
-
-### Memory System
-```python
-class AgentMemory:
-    """Persistent memory with JSON storage"""
-    - conversations: List[Dict]
-    - insights: List[Dict]
-    - patterns: List[Dict]
-```
-
-### Orchestration
-```python
-class CrewOrchestrator:
-    """Coordinates multiple agents"""
-    - automated_analysis_workflow()
-    - interactive_session()
-    - memory management
-```
-
----
-
-## Key Capabilities
-
-### 1. **Automated Analysis Workflow**
-```python
-crew = CrewOrchestrator()
-result = crew.automated_analysis_workflow({
-    "metrics": [{"cpu": 85, "memory": 76}],
-    "anomalies": ["High CPU usage"]
-})
-```
-
-### 2. **Interactive Sessions**
-```python
-response = crew.interactive_session("Analyze the recent performance data")
-# Automatically selects appropriate agent based on query
-```
-
-### 3. **Memory & Context**
-```python
-# Agents remember previous conversations
-# Context influences future responses
-# Insights accumulate over time
-```
-
-### 4. **Root Cause Analysis**
-```python
-analysis = root_cause_analyzer.analyze_issue(
-    issue="API response times",
-    symptoms=["High latency", "Timeout errors"],
-    context={"load": "high"}
-)
-```
-
----
-
-## Production Readiness
-
-### Error Handling
-- Comprehensive try/catch blocks
-- Graceful degradation
-- Detailed logging
-
-### Logging
-- Structured logging with timestamps
-- Debug, info, error levels
-- Performance tracking
-
-### Memory Management
-- Persistent JSON storage
-- Automatic cleanup
-- Context window management
-
----
-
-## Integration Examples
-
-### With M2 API Gateway
-```python
-# Enhanced API responses with agent insights
-@app.post("/analyze")
-async def analyze_endpoint(data: Dict):
-    crew = CrewOrchestrator()
-    result = crew.automated_analysis_workflow(data)
-    return result
-```
-
-### With M3 Auto-Reporter
-```python
-# Intelligent report enhancement
-def enhanced_report(events):
-    crew = CrewOrchestrator()
-    analysis = crew.data_analyst.analyze_data(events)
-    return crew.report_generator.generate_report(analysis)
-```
-
----
-
-## Patrianna Alignment
-
-### ✅ **Perfect Match for Job Requirements**
-
-| Requirement | Implementation |
-|-------------|----------------|
-| **Agent Orchestration** | `CrewOrchestrator` class |
-| **Feedback Mechanisms** | `AgentMemory` with insights |
-| **Context-Aware Agents** | Memory-based context |
-| **Automated Report Generation** | `ReportGeneratorAgent` |
-| **Root Cause Analysis** | `RootCauseAnalyzer` |
-| **Interactive User Agents** | `interactive_session()` |
-
-### 🎯 **Demonstrates Key Skills**
-- Multi-agent coordination
-- Memory and context management
-- Automated workflow orchestration
-- Error handling and logging
-- Production-ready code structure
-
----
-
-## Future Enhancements
-
-### Real CrewAI Integration
-```python
-# Replace MockLLMAgent with actual CrewAI
-from crewai import Agent, Task, Crew
-```
-
-### Advanced Features
-- **Reward tuning**: Agent performance optimization
-- **Action planning loops**: Multi-step reasoning
-- **Autonomous agent memory**: Self-improving agents
-- **Real-time collaboration**: Live agent interaction
-
----
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `crew_agents.py` | Main agent implementation |
-| `README.md` | Documentation |
-| `requirements.txt` | Dependencies |
-| `agent_memory.json` | Persistent memory storage | 
+[crew_agents.py](crew_agents.py) and [requirements.txt](requirements.txt).
