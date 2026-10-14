@@ -1,44 +1,47 @@
-# LLM API Gateway (M2)
+# M2 — LLM API gateway experiment
 
-Thin FastAPI layer that hides differences between **OpenAI** and **Vertex AI** chat endpoints.
+A FastAPI adapter with provider-specific OpenAI and Vertex AI calls. The current endpoint returns one JSON response. It does not stream tokens or invoke the RAG and mock-agent modules.
 
-*Single POST endpoint*: `/chat` accepts `{provider, model, messages}` and streams the reply.
+## Request contract
 
-| Provider | Supported models             |
-|----------|------------------------------|
-| openai   | gpt-3.5-turbo, gpt-4o-mini   |
-| vertex   | gemini-pro (us-central1)     |
+- Endpoint: `POST /chat`
+- JSON body: `messages`, a list of objects containing `role` and `content`
+- Query parameters: `provider` and `model`
+- Response: provider, model, content, decision ID, and timestamp
 
----
+The source defaults to Vertex and a fixed model identifier. Select an accessible provider/model explicitly; current provider availability has not been verified in this review.
 
-## Quick start
+## Local setup
+
+From the repository root, inside your Python environment:
+
 ```bash
-cd m2-api-gateway
-pip install -r requirements.txt
-
-# minimum env vars
-export OPENAI_API_KEY="sk-..."      # for OpenAI requests
-export VERTEX_PROJECT="my-gcp-proj"
-export VERTEX_LOCATION="us-central1"
-export GOOGLE_APPLICATION_CREDENTIALS=$HOME/keys/vertex-sa.json
-
-uvicorn api_gateway:app --port 8000 --reload
+python -m pip install -r modules/m2-api-gateway/requirements.txt
+cd modules/m2-api-gateway
+python -m uvicorn api_gateway:app --host 127.0.0.1 --port 8000
 ```
 
-### Example request
+Configure `OPENAI_API_KEY` for OpenAI. The Vertex path uses `VERTEX_PROJECT`, optional `VERTEX_LOCATION`, and the Google SDK's configured credentials.
+
+Example request shape, with a model available to your account:
+
 ```bash
-curl -X POST http://localhost:8000/chat \
-     -H "Content-Type: application/json" \
-     -d '{
-           "provider": "openai",
-           "model":    "gpt-3.5-turbo",
-           "messages": [{"role":"user","content":"Ping"}]
-         }'
+curl -X POST 'http://127.0.0.1:8000/chat?provider=openai&model=YOUR_MODEL_ID' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"user","content":"Hello"}]}'
 ```
 
-Expected stream:
-```
-{"provider":"vertex","model":"gemini-2.5-pro","content":"Pong.\n\nI'm here! Received your message loud and clear.\n\nHow can I help you?"}%                                                             
-```
+This request invokes an external provider and may incur charges. It has not been executed as part of this documentation update.
 
-![gateway screenshot](../../docs/m2_gateway.png)
+## Read the code
+
+- `chat_endpoint()` validates the request, selects a provider, and returns a response.
+- `_call_openai()` forwards the supplied messages.
+- `_call_vertex()` concatenates user-message content; it does not preserve equivalent system/assistant-role semantics.
+- `log_decision()` writes request messages, responses, and timing to local JSON files.
+
+## Limitations
+
+Provider calls are synchronous inside an async endpoint. The example has no demonstrated authentication, rate limiting, retry policy, or production load behavior. Logs may include the full request and response, so use synthetic data during exploration.
+
+See [api_gateway.py](api_gateway.py) for the implementation. Installation, live provider calls, and the full test suite still require verification.
